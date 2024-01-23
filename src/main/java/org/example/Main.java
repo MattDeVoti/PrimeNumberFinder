@@ -12,9 +12,9 @@ public class Main {
         // Uncomment the methods below as you reach them in the explanation in "primeNumberFinder"
         // to test how efficient (or inefficient) they are
 
-        primeNumberFinder.findPrimeNumbersUpToInefficient(upperLimit);
-        //primeNumberFinder.findPrimeNumbersUpToSkipEvensAfterTwo(upperLimit);
-        //primeNumberFinder.findPrimeNumbersUpToDivideByOdd(upperLimit);
-        //primeNumberFinder.findPrimeNumbersUpToMostEfficient(upperLimit);
+        primeNumberFinder.primeNumberCheckInefficient(upperLimit);
+        primeNumberFinder.primeNumberCheckSkipEvensAfterTwo(upperLimit);
+        primeNumberFinder.primeNumberCheckDivideByOdd(upperLimit);
+        primeNumberFinder.primeNumberCheckMostEfficient(upperLimit);
     }
 }

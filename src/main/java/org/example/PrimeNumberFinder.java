@@ -2,26 +2,31 @@ package org.example;
 
 public class PrimeNumberFinder {
 
-    // As a quick refresher, a prime number is a number that cannot be divided by any number other
-    // than 1 and itself.
+    // As a quick refresher, a prime number is a number that cannot be cleanly divided by any number other
+    // than 1 and itself. (Cannot be divided into another whole number other than 1 or itself in other words)
     //
-    // If we want to just jump right in to this process, we could try something like the following
-    // Of course, the following method is very inefficient for a number of reasons we'll explore below
+    // If we want to just jump right in to this process, we could try something like the following method
+    // Of course, this method is very inefficient for a number of reasons that we'll explore below
     //
-    // Go back to the main method and run "findPrimeNumbersUpToInefficient" to see how long it takes to complete
-    public void findPrimeNumbersUpToInefficient(int upperLimit) {
+    // Go back to the main method and run "primeNumberCheckInefficient" to see how long it takes to complete
+    public void primeNumberCheckInefficient(int upperLimit) {
         long startTime = System.currentTimeMillis();
 
+        //Starts testing numbers at 1 to see if they're prime
         for(int currentInt = 1; currentInt<=upperLimit; currentInt++){
             boolean isPrime = true;
             for(int i = 1; i<currentInt; i++){
+
                 // We can use the method "isDivisible" below to determine if our "currentInt" is
                 // cleanly divisible by the number in question
-
                 if(i!=1 && isDivisible(i, currentInt)){
+                    // If the number we're testing was cleanly divisible by a number other than 1 or
+                    // itself (and this loop will never reach "itself") we know it's not prime, so we
+                    // can change the value of "isPrime"
                     isPrime=false;
                 }
             }
+            // If a number we're testing survived all division attempts, we know it must be a prime number
             if(isPrime){
                 System.out.println(currentInt);
             }
@@ -31,28 +36,31 @@ public class PrimeNumberFinder {
         System.out.println("Took " + runTime + " milliseconds to run.");
     }
 
-    // if the "currentNum" is cleanly divisible by "i" this will return true
-    public boolean isDivisible(int i, int currentNum){
-        if(currentNum%i==0){
+    // Ff the "currentInt" is cleanly divisible by "i" this will return true
+    // We'll be using this method throughout this class so it will not be changed
+    public boolean isDivisible(int i, int currentInt){
+        if(currentInt%i==0){
             return true;
         }
         return false;
     }
 
-    // The method "findPrimeNumbersUpToInefficient" got us the result we wanted but it took a while
+    // The method "primeNumberCheckInefficient" got us the result we wanted but it took a while
     // to do it. Let's think about ways we can improve this process
     //
     // First of all, every even number above 2 can be ruled out since they can all be divided by 2 which means they aren't prime
     //
-    // Go back to the main method and run "findPrimeNumbersUpToSkipEvensAfterTwo" to see how long it takes to complete
-    // (Make sure to comment out "findPrimeNumbersUpToInefficient" so that you don't run both)
-    public void findPrimeNumbersUpToSkipEvensAfterTwo(int upperLimit) {
+    // Go back to the main method and run "primeNumberCheckSkipEvensAfterTwo" to see how long it takes to complete
+    // (Make sure to comment out "primeNumberCheckInefficient" so that you don't run both)
+    public void primeNumberCheckSkipEvensAfterTwo(int upperLimit) {
         long startTime = System.currentTimeMillis();
 
+        // Once again, we start testing numbers at 1 to see if they are prime
         for(int currentInt = 1; currentInt<=upperLimit; currentInt++){
             boolean isPrime = true;
             for(int i = 1; i<currentInt; i++){
                 if(i!=1 && isDivisible(i, currentInt)){
+                    // Once again, this will only be reached if a number isn't prime
                     isPrime=false;
                 }
             }
@@ -80,9 +88,9 @@ public class PrimeNumberFinder {
     // numbers since odd numbers can't be divided by even numbers. Since two acts as an exception, we can print out
     // first two prime numbers and then run things more consistently after. This will help to keep the code more simple
     //
-    // Go back to the main method and run "findPrimeNumbersUpToDivideByOdd" to see how long it takes to complete
-    // (Make sure to comment out "findPrimeNumbersUpToSkipEvensAfterTwo" so that you don't run both)
-    public void findPrimeNumbersUpToDivideByOdd(int upperLimit) {
+    // Go back to the main method and run "primeNumberCheckDivideByOdd" to see how long it takes to complete
+    // (Make sure to comment out "primeNumberCheckSkipEvensAfterTwo" so that you don't run both)
+    public void primeNumberCheckDivideByOdd(int upperLimit) {
         long startTime = System.currentTimeMillis();
 
         // We can print the first two prime numbers here
@@ -92,7 +100,7 @@ public class PrimeNumberFinder {
         for(int currentInt = 3; currentInt<=upperLimit; currentInt+=2){
             boolean isPrime = true;
             for(int i = 3; i<currentInt; i+=2){
-                // Now we don't need to check if "i" equals 1 but we do need to check if "i" equals "currentInt"
+                // Now we don't need to check if "i" equals 1, but we do need to check if "i" equals "currentInt"
                 if(i!=currentInt && isDivisible(i, currentInt)){
                     isPrime=false;
                 }
@@ -132,9 +140,9 @@ public class PrimeNumberFinder {
     //
     // Let's implement this in the method below
     //
-    // Go back to the main method and run "findPrimeNumbersUpToStopWhenConclusionReached" to see how long it takes to complete
-    // (Make sure to comment out "findPrimeNumbersUpToDivideByOdd" so that you don't run both)
-    public void findPrimeNumbersUpToMostEfficient(int upperLimit) {
+    // Go back to the main method and run "primeNumberCheckMostEfficient" to see how long it takes to complete
+    // (Make sure to comment out "primeNumberCheckDivideByOdd" so that you don't run both)
+    public void primeNumberCheckMostEfficient(int upperLimit) {
         long startTime = System.currentTimeMillis();
 
         // We can print the first two prime numbers here
@@ -143,7 +151,8 @@ public class PrimeNumberFinder {
         // Now we can start the rest of our search at 3 and increment by 2 each time without the need for special conditions
         for(int currentInt = 3; currentInt<=upperLimit; currentInt+=2){
             boolean isPrime = true;
-            //
+            // As mentioned above, we're running this loop until a number times itself is larger than the number we're running
+            // our "primeNumberCheck" on
             for(int i = 3; (i*i)<currentInt; i+=2){
                 if(i!=currentInt && isDivisible(i, currentInt)){
                     isPrime=false;
