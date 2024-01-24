@@ -13,8 +13,8 @@ public class Main {
         // to test how efficient (or inefficient) they are
 
         primeNumberFinder.primeNumberCheckInefficient(upperLimit);
-        primeNumberFinder.primeNumberCheckSkipEvensAfterTwo(upperLimit);
-        primeNumberFinder.primeNumberCheckDivideByOdd(upperLimit);
-        primeNumberFinder.primeNumberCheckMostEfficient(upperLimit);
+        //primeNumberFinder.primeNumberCheckSkipEvensAfterTwo(upperLimit);
+        //primeNumberFinder.primeNumberCheckDivideByOdd(upperLimit);
+        //primeNumberFinder.primeNumberCheckMostEfficient(upperLimit);
     }
 }
